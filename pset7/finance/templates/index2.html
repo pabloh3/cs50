@@ -1,0 +1,13 @@
+{% block title %}
+    Quote2
+{% endblock %}
+
+{% block main %}
+    <form action="{{ url_for('quote') }}" method="post">
+        <fieldset>
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="symbol2" placeholder="Symbol2" type="text"/>
+            </div>
+        </fieldset>
+    </form>
+{% endblock %}

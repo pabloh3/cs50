@@ -1,0 +1,89 @@
+#!/usr/bin/env python3
+
+import os
+import sys
+import helpers
+
+from analyzer import Analyzer
+from termcolor import colored
+
+
+def main():
+
+    # ensure proper usage
+    if len(sys.argv) != 2:
+        sys.exit("Usage: ./tweets @handle")
+
+    # absolute paths to lists
+    positives = os.path.join(sys.path[0], "positive-words.txt")
+    negatives = os.path.join(sys.path[0], "negative-words.txt")
+
+    # instantiate analyzer
+    analyzer = Analyzer(positives, negatives)
+
+
+    # import tweets using helpers.py (get_user_timeline) and then check if successful (public account with tweets)
+    # alert user if successful or failed attempt
+    tweets = helpers.get_user_timeline(sys.argv[1],50)
+    
+    if float(len(tweets)) < 50:
+        print("User has less than 50 tweets made public")
+    
+    for j in tweets:
+        # analyze tweet
+        print(j)
+        score = analyzer.analyze(j)
+        if score > 0.0:
+            print(colored(":)", "green"))
+        elif score < 0.0:
+            print(colored(":(", "red"))
+        else:
+            print(colored(":|", "yellow"))
+
+if __name__ == "__main__":
+    main()
+
+
+
+
+"""
+How to use:
+
+    Visit apps.twitter.com, logging in if prompted, and click Create New App.
+
+        Any (available) Name suffices.
+
+        Any (sufficiently long) Description suffices.
+
+        For Website, input https://cs50.harvard.edu/ (or any other URL).
+
+        Leave Callback URL blank.
+
+    Click Create your Twitter application. You should see "Your application has been created."
+
+    Click Keys and Access Tokens.
+
+    Click modify app permissions.
+
+    Select Read only, then click Update Settings.
+
+    Click Keys and Access Tokens again.
+
+    Highlight and copy the value to the right of Consumer Key (API Key).
+
+    In a terminal window, execute
+
+    export API_KEY=value
+
+    where value is that (pasted) value, without any space immediately before or after the =.
+
+    Highlight and copy the value to the right of Consumer Secret (API Secret).
+
+    In a terminal window, execute
+
+    export API_SECRET=value
+
+    where value is that (pasted) value, without any space immediately before or after the =.
+
+If you close that terminal window and/or open another, you’ll need to repeat those last five steps.
+"""

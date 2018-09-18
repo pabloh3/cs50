@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+    <table>
+    <tbody>
+    <tr>
+    <td>transaction_id &nbsp;&nbsp;&nbsp;</td>
+    <td>Timestamp &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
+    <td>Price (USD) &nbsp;&nbsp;</td>
+    <td>Name &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;</td>
+    <td>Spent (USD) &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;</td>
+    <td>Shares transacted &nbsp;&nbsp;</td>
+    </tr>
+    {% for tran in trans %}
+    <tr>
+    <td>{{tran["transaction_id"]}}</td>
+    <td>{{tran["timestamp"]}}</td>
+    <td>${{tran["price"]}}</td>
+    <td>{{tran["symbol"]}}</td>
+    <td>${{tran["spent"]}}</td>
+    <td>{{tran["stock_ammount"]}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+{% endblock %}

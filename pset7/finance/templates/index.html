@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+    <table>
+    <tbody>
+    <tr>
+    <td>id &nbsp;&nbsp;&nbsp;</td>
+    <td>Name &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;</td>
+    <td>Price (USD) &nbsp;&nbsp;</td>
+    <td>Shares owned &nbsp;&nbsp;</td>
+    <td>Value (USD) &nbsp;&nbsp;</td>
+    </tr>
+    {% for holding in ind %}
+    <tr>
+    <td>{{holding["balance_id"]}}</td>
+    <td>{{holding["name"]}}</td>
+    <td>${{holding["price"]}}</td>
+    <td>{{holding["holdings"]}}</td>
+    <td>${{holding["value"]}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    <p></p>
+    <p>Cash total: ${{cash_int}} USD</p>
+   <p>Total Grand Value: ${{value_total}} USD</p>
+    
+{% endblock %}
